@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rusted Gate Advisory | Technology Transformation</title>
+  <meta name="description" content="Fractional CTO/CIO leadership, compliance remediation, commercial real estate technology, and PE due diligence. We open what has been stuck." />
+  <link rel="icon" type="image/png" href="/images/RGA-Logo-Clear.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --navy:        #0D1B3E;
+      --navy-mid:    #152347;
+      --navy-light:  #1E3163;
+      --gold:        #C9A84C;
+      --gold-light:  #E8C878;
+      --gold-pale:   #F5EDD4;
+      --white:       #FFFFFF;
+      --off-white:   #F8F6F1;
+      --gray-light:  #EAE8E3;
+      --gray-mid:    #9A9588;
+      --text-dark:   #1A1A2E;
+
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'Jost', sans-serif;
+
+      --section-pad: 7rem 0;
+      --container:   1160px;
+      --radius:      2px;
+
+      --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ─── UTILITIES ──────────────────────────────────────────────────────── */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .gold-line {
+      display: block;
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .gold-line--center { margin-left: auto; margin-right: auto; }
+    .label {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ──────────────────────────────────────────── */
+    .noise::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ─── NAVIGATION ─────────────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.4rem 0;
+      transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
+    }
+    #nav.scrolled {
+      background: rgba(13, 27, 62, 0.97);
+      backdrop-filter: blur(12px);
+      padding: 1rem 0;
+      box-shadow: 0 1px 0 rgba(201, 168, 76, 0.2);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      opacity: 0;
+      transform: translateY(-8px);
+      animation: fadeDown 0.8s 0.2s forwards;
+    }
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.03em;
+    }
+    .nav-logo-text span {
+      color: var(--gold);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(-8px);
+      animation: fadeDown 0.8s 0.4s forwards;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      transition: color var(--transition);
+      position: relative;
+      padding-bottom: 3px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      font-size: 0.7rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.15em !important;
+      color: var(--gold) !important;
+      border: 1px solid var(--gold);
+      padding: 0.5rem 1.2rem !important;
+      transition: background var(--transition), color var(--transition) !important;
+    }
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+    }
+    .nav-cta::after { display: none !important; }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: var(--transition);
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--navy);
+      overflow: hidden;
+    }
+
+    /* Diagonal grid lines */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 0;
+    }
+
+    /* Gold gradient orb */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(ellipse at center,
+        rgba(201,168,76,0.08) 0%,
+        rgba(201,168,76,0.03) 40%,
+        transparent 70%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
+    }
+    .hero-eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .hero-title-accent {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--white);
+      display: block;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.65s forwards;
+    }
+
+    .hero-divider {
+      width: 64px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.75s forwards;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.85s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 1s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      transition: background var(--transition), transform var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: border-color var(--transition), color var(--transition);
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Hero gate graphic */
+    .hero-gate {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(420px, 38vw);
+      opacity: 0.06;
+      z-index: 1;
+      animation: gateReveal 2s 0.5s forwards;
+    }
+
+    /* Hero scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 1s 1.5s forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s 2s infinite;
+    }
+
+    /* ─── MARQUEE STRIP ──────────────────────────────────────────────────── */
+    .marquee-strip {
+      background: var(--gold);
+      padding: 0.75rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 30s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--navy);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--navy);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── INTRO / PHILOSOPHY ─────────────────────────────────────────────── */
+    #intro {
+      padding: var(--section-pad);
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+    #intro::before {
+      content: '"';
+      position: absolute;
+      top: -2rem;
+      right: 3rem;
+      font-family: var(--font-display);
+      font-size: 25rem;
+      color: rgba(201,168,76,0.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .intro-left .label { margin-bottom: 1rem; }
+    .intro-number {
+      font-family: var(--font-display);
+      font-size: 7rem;
+      font-weight: 300;
+      color: rgba(201,168,76,0.15);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .intro-stat {
+      border-top: 1px solid var(--gray-light);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .intro-stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .intro-stat-label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--gray-mid);
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
+
+    .intro-right blockquote {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      line-height: 1.45;
+      color: var(--navy);
+      margin-bottom: 2.5rem;
+    }
+    .intro-right blockquote em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .intro-right p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: #4A4A5A;
+      max-width: 600px;
+    }
+
+    /* ─── SERVICES ───────────────────────────────────────────────────────── */
+    #services {
+      padding: var(--section-pad);
+      background: var(--white);
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
+    }
+    .section-header .label { margin-bottom: 1rem; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .section-title strong {
+      font-weight: 600;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--gray-light);
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 3rem;
+      position: relative;
+      transition: background var(--transition);
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .service-card:hover::before { height: 100%; }
+    .service-card:hover { background: var(--off-white); }
+
+    .service-number {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 1.5rem;
+      color: var(--navy);
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+    .service-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: #5A5A6A;
+      margin-bottom: 1.5rem;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .service-tag {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* ─── ABOUT / PRINCIPALS ─────────────────────────────────────────────── */
+    #about {
+      padding: var(--section-pad);
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    #about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .about-header {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 4rem;
+    }
+    .about-header .label { margin-bottom: 1rem; }
+    .about-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .about-title strong { font-weight: 600; }
+
+    .about-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.6);
+      max-width: 700px;
+      margin-top: 1.5rem;
+    }
+
+    .principals-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .principal-card {
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 2.5rem;
+      position: relative;
+      transition: border-color var(--transition);
+    }
+    .principal-card:hover { border-color: rgba(201,168,76,0.4); }
+
+    .principal-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .principal-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+    .principal-avatar-initials {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .principal-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .principal-title {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.25rem;
+    }
+    .principal-bio {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.5rem;
+    }
+    .principal-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .credential {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.4;
+    }
+    .credential-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    /* Firm philosophy block */
+    .firm-philosophy {
+      position: relative;
+      z-index: 1;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .philosophy-label {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      font-style: italic;
+    }
+    .philosophy-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--white);
+    }
+    .philosophy-text em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    /* ─── INSIGHTS ───────────────────────────────────────────────────────── */
+    #insights {
+      padding: var(--section-pad);
+      background: var(--off-white);
+    }
+
+    .insights-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .insights-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap var(--transition);
+    }
+    .insights-link:hover { gap: 0.75rem; }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2px;
+      background: var(--gray-light);
+    }
+
+    .insight-card {
+      background: var(--white);
+      padding: 2.5rem;
+      position: relative;
+      transition: background var(--transition);
+    }
+    .insight-card:hover { background: #F0EDE6; }
+    .insight-card.featured {
+      grid-row: span 1;
+    }
+
+    .insight-category {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .insight-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    .insight-card:not(.featured) .insight-title {
+      font-size: 1.1rem;
+    }
+    .insight-excerpt {
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #5A5A6A;
+      margin-bottom: 1.5rem;
+    }
+    .insight-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.7rem;
+      color: var(--gray-mid);
+      border-top: 1px solid var(--gray-light);
+      padding-top: 1rem;
+    }
+    .insight-read-link {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap var(--transition);
+      margin-top: auto;
+    }
+    .insight-read-link:hover { gap: 0.6rem; }
+
+    /* Coming soon card */
+    .insight-coming-soon {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: var(--navy) !important;
+      padding: 2.5rem;
+    }
+    .coming-soon-icon {
+      width: 40px;
+      height: 40px;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+    .coming-soon-text {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────────────────────── */
+    #contact {
+      padding: var(--section-pad);
+      background: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-left .label { margin-bottom: 1rem; }
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .contact-title strong { font-weight: 600; }
+    .contact-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: #5A5A6A;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contact-info-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--off-white);
+      border: 1px solid var(--gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+    .contact-info-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 0.2rem;
+    }
+    .contact-info-value {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--navy);
+    }
+
+    /* Contact form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      background: var(--off-white);
+      border: 1px solid var(--gray-light);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--text-dark);
+      transition: border-color var(--transition);
+      outline: none;
+      width: 100%;
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-textarea { min-height: 140px; resize: vertical; }
+    .form-select { appearance: none; cursor: pointer; }
+
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      align-self: flex-start;
+    }
+    .form-submit:hover {
+      background: var(--navy-light);
+      transform: translateY(-1px);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────────────── */
+    #footer {
+      background: var(--navy);
+      padding: 3rem 0;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .footer-logo img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.7;
+    }
+    .footer-logo-text {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links a {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gateReveal {
+      from { opacity: 0; transform: translateY(-50%) scale(0.95); }
+      to   { opacity: 0.06; transform: translateY(-50%) scale(1); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1; transform: scaleY(1.2); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--navy);
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        border-top: 1px solid rgba(201,168,76,0.1);
+      }
+      .nav-toggle { display: flex; }
+      #nav { position: relative; background: var(--navy); }
+
+      .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .principals-grid { grid-template-columns: 1fr; }
+      .insights-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .firm-philosophy { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .hero-gate { display: none; }
+      .insights-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+
+    @media (max-width: 600px) {
+      :root { --section-pad: 4rem 0; }
+      .hero-title, .hero-title-accent { font-size: 2.5rem; }
+      .service-card { padding: 2rem; }
+      .principal-card { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══════════════════════════════════════════════════════ -->
+  <nav id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo">
+          <img src="/images/RGA-Logo-Clear.png" alt="Rusted Gate Advisory" />
+          <span class="nav-logo-text">Rusted <span>Gate</span> Advisory</span>
+        </a>
+        <div class="nav-links" id="navLinks">
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#insights">Insights</a>
+          <a href="#contact" class="nav-cta">Get In Touch</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <!-- Gate SVG watermark -->
+    <svg class="hero-gate" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="180" width="280" height="210" rx="2" stroke="white" stroke-width="3"/>
+      <path d="M10 180 Q10 10 150 10 Q290 10 290 180" stroke="white" stroke-width="3" fill="none"/>
+      <path d="M80 180 Q80 80 150 80 Q220 80 220 180" stroke="white" stroke-width="2" fill="none"/>
+      <rect x="130" y="270" width="40" height="60" stroke="white" stroke-width="2"/>
+      <circle cx="125" cy="300" r="5" stroke="white" stroke-width="2"/>
+      <line x1="10" y1="180" x2="80" y2="180" stroke="white" stroke-width="2"/>
+      <line x1="220" y1="180" x2="290" y2="180" stroke="white" stroke-width="2"/>
+    </svg>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          <span class="label">Technology Transformation &amp; Advisory</span>
+        </div>
+
+        <h1 class="hero-title">We open what has</h1>
+        <span class="hero-title-accent"><em>been stuck.</em></span>
+
+        <div class="hero-divider"></div>
+
+        <p class="hero-sub">
+          Fractional CTO/CIO leadership, compliance remediation, commercial real estate technology, and PE due diligence — for organizations where progress has stalled and the path forward requires someone who has been here before.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            Start the Conversation
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </a>
+          <a href="#services" class="btn-secondary">
+            Our Services
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══ MARQUEE ═══════════════════════════════════════════════════════════ -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <!-- Duplicated for seamless loop -->
+      <span class="marquee-item"><span class="marquee-dot"></span>Fractional CTO/CIO</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>SOC2 Compliance</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>PCI DSS Remediation</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Cloud Architecture</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Commercial Real Estate Technology</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>PE Due Diligence</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Digital Transformation</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Azure &amp; AWS</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Interim Technology Leadership</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Data Architecture</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Fractional CTO/CIO</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>SOC2 Compliance</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>PCI DSS Remediation</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Cloud Architecture</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Commercial Real Estate Technology</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>PE Due Diligence</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Digital Transformation</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Azure &amp; AWS</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Interim Technology Leadership</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Data Architecture</span>
+    </div>
+  </div>
+
+  <!-- ═══ INTRO ══════════════════════════════════════════════════════════════ -->
+  <section id="intro">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="intro-left reveal">
+          <span class="label">Our Approach</span>
+          <div class="intro-number">35</div>
+          <div class="intro-stat">
+            <div class="intro-stat-num">35+</div>
+            <div class="intro-stat-label">Years of Technology Leadership</div>
+          </div>
+          <div class="intro-stat">
+            <div class="intro-stat-num">14</div>
+            <div class="intro-stat-label">Years in Enterprise Consulting</div>
+          </div>
+          <div class="intro-stat">
+            <div class="intro-stat-num">4</div>
+            <div class="intro-stat-label">Specialized Service Lanes</div>
+          </div>
+        </div>
+        <div class="intro-right reveal reveal-delay-2">
+          <blockquote>
+            "Most organizations don't have a technology problem. They have a <em>foundation</em> problem — and they've been trying to build on quicksand."
+          </blockquote>
+          <p>
+            Rusted Gate Advisory works with mid-market, growth-stage, nonprofit, and PE-backed organizations where technology has stalled, infrastructure has been inherited rather than designed, or compliance has been attempted and failed. We bring 35 years of hands-on engineering and executive leadership to engagements where the prior approach has run out of road. We do not take anyone's word for where the problem lives — we find it ourselves, because we can see every layer of the stack.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICES ══════════════════════════════════════════════════════════ -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">What We Do</span>
+        <h2 class="section-title">Four specialized<br><strong>service lanes</strong></h2>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Service 1 -->
+        <div class="service-card reveal">
+          <div class="service-number">01</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <h3 class="service-title">Fractional CTO / CIO Leadership</h3>
+          <p class="service-desc">
+            Senior technology leadership on a fractional or interim basis for organizations that need CTO and CIO expertise without the full-time commitment. We provide strategic direction, vendor governance, team leadership, and technology roadmap ownership — entering without a long runway and delivering without needing organizational support structures that are not yet in place.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">Part-Time Retainer</span>
+            <span class="service-tag">Interim Full-Time</span>
+            <span class="service-tag">Project-Based</span>
+            <span class="service-tag">Advisory Board</span>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-number">02</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+          <h3 class="service-title">Compliance Remediation</h3>
+          <p class="service-desc">
+            SOC2 Type 1 and Type 2 certification and PCI DSS compliance for organizations where prior attempts have failed. We have driven both certifications without dedicated executive sponsorship in resource-constrained environments — including a complete architectural rethink of payment infrastructure to bring an unworkable environment into compliance scope.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">SOC2 Type 1 &amp; 2</span>
+            <span class="service-tag">PCI DSS</span>
+            <span class="service-tag">Zero Trust</span>
+            <span class="service-tag">IAM</span>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-number">03</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <h3 class="service-title">Commercial Real Estate Technology</h3>
+          <p class="service-desc">
+            Data architecture, ETL design, platform modernization, and ARGUS ecosystem expertise for commercial real estate firms, PropTech companies, and real estate investment managers. Fourteen years of direct experience with the industry's largest organizations across the United States, Germany, and Australia — including data warehouse architecture that eliminated 3,000 labor hours per quarter.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">ARGUS Enterprise</span>
+            <span class="service-tag">Data Warehouse</span>
+            <span class="service-tag">ETL/ELT</span>
+            <span class="service-tag">PropTech</span>
+          </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-number">04</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="11" y1="8" x2="11" y2="14"/>
+            <line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+          <h3 class="service-title">PE Technology Due Diligence</h3>
+          <p class="service-desc">
+            Technology due diligence for private equity acquisitions and portfolio company assessments. We evaluate infrastructure, technical debt, compliance posture, architecture scalability, and team capability to inform investment decisions and post-close integration planning. Delivered as a structured assessment with executive-ready findings and actionable recommendations.
+          </p>
+          <div class="service-tags">
+            <span class="service-tag">M&amp;A Integration</span>
+            <span class="service-tag">Technical Debt</span>
+            <span class="service-tag">Risk Assessment</span>
+            <span class="service-tag">Portfolio Advisory</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ══════════════════════════════════════════════════════════════ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-header reveal">
+        <span class="label">The Firm</span>
+        <h2 class="about-title">Built by practitioners,<br><strong>not theorists</strong></h2>
+        <p class="about-intro">
+          Rusted Gate Advisory was founded by technology executives who have spent careers walking into organizations where something critical was not working — and delivering outcomes that prior efforts could not achieve. We do not consult from a distance. We engage directly, diagnose accurately, and build the foundation the organization should have had.
+        </p>
+      </div>
+
+      <div class="principals-grid">
+
+        <!-- Principal 1 — Eli -->
+        <div class="principal-card reveal">
+          <div class="principal-header">
+            <div class="principal-avatar">
+              <span class="principal-avatar-initials">EJR</span>
+            </div>
+            <div>
+              <div class="principal-name">Eli J. Ralston</div>
+              <div class="principal-title">Managing Principal</div>
+            </div>
+          </div>
+          <p class="principal-bio">
+            35 years spanning hands-on C#/.NET and SQL Server engineering through enterprise technology executive leadership. Eli specializes in technology transformation and recovery — walking into organizations where compliance, infrastructure, or operational technology has stalled and delivering outcomes that prior efforts could not achieve. Most recently served as Head of Information Technology at the Motorcycle Industry Council, where he delivered SOC2 Type 1 and PCI DSS certification — both of which had failed for multiple years prior — while modernizing the entire cloud and identity infrastructure and generating over $300K in annual savings.
+          </p>
+          <div class="principal-credentials">
+            <div class="credential"><div class="credential-dot"></div><span>14 years at INTRER and Altus Group / ARGUS Software, the global standard for commercial real estate analytics</span></div>
+            <div class="credential"><div class="credential-dot"></div><span>SOC2 Type 1, PCI DSS, Zero Trust, Azure, AWS, Microsoft 365 tenant administration</span></div>
+            <div class="credential"><div class="credential-dot"></div><span>Enterprise data warehouse design, ETL architecture, and platform modernization for 30–60 global enterprise clients</span></div>
+            <div class="credential"><div class="credential-dot"></div><span>Greater Los Angeles and Orange County, California</span></div>
+          </div>
+        </div>
+
+        <!-- Principal 2 — Chad -->
+        <div class="principal-card reveal reveal-delay-2">
+          <div class="principal-header">
+            <div class="principal-avatar">
+              <span class="principal-avatar-initials">CB</span>
+            </div>
+            <div>
+              <div class="principal-name">Chad Belson</div>
+              <div class="principal-title">Principal</div>
+            </div>
+          </div>
+          <p class="principal-bio">
+            Deep domain expertise in commercial real estate technology and enterprise data environments, developed through years of direct client engagement at INTRER and Altus Group / ARGUS Software. Chad brings a practitioner's understanding of how commercial real estate organizations use and misuse technology — and what it takes to close the gap between the data organizations have and the decisions they need to make. His real estate industry relationships and operational knowledge make him a trusted partner for CRE firms navigating platform transitions and PropTech evaluations.
+          </p>
+          <div class="principal-credentials">
+            <div class="credential"><div class="credential-dot"></div><span>Commercial real estate technology advisory and ARGUS ecosystem expertise</span></div>
+            <div class="credential"><div class="credential-dot"></div><span>Enterprise data platform assessment and modernization for CRE investment managers</span></div>
+            <div class="credential"><div class="credential-dot"></div><span>Direct client engagement experience with the largest CRE organizations globally</span></div>
+            <div class="credential"><div class="credential-dot"></div><span>Tampa, Florida</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="firm-philosophy reveal">
+        <div class="philosophy-label">Our conviction</div>
+        <p class="philosophy-text">
+          "Technology has the greatest potential to move any organization forward of any functional domain. The organizations that recognize this — and give their technology leadership the foundation to deliver — are the ones that pull ahead. <em>We help build that foundation.</em>"
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ INSIGHTS ══════════════════════════════════════════════════════════ -->
+  <section id="insights">
+    <div class="container">
+      <div class="insights-header">
+        <div class="reveal">
+          <span class="label">Perspectives</span>
+          <h2 class="section-title" style="margin-top:0.5rem;">Insights &amp; <strong>Thinking</strong></h2>
+        </div>
+        <a href="https://www.linkedin.com/company/rustedgateadvisory" class="insights-link reveal" target="_blank" rel="noopener">
+          View all on LinkedIn
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </a>
+      </div>
+
+      <div class="insights-grid">
+
+        <!-- Featured article -->
+        <div class="insight-card featured reveal">
+          <div class="insight-category">Leadership &amp; Culture</div>
+          <h3 class="insight-title">The Difference Between Knowing and Understanding</h3>
+          <p class="insight-excerpt">
+            Most of us have access to more information than any generation before us. But information was never the hard part. This article explores the distinction between knowledge, intelligence, and wisdom — and what the erosion of mentorship culture means for the leaders and organizations we are building today.
+          </p>
+          <div class="insight-meta">
+            <span>Eli J. Ralston</span>
+            <span>·</span>
+            <span>February 2026</span>
+            <span>·</span>
+            <span>7 min read</span>
+          </div>
+          <br/>
+          <a href="https://www.linkedin.com/pulse/difference-between-knowing-understanding-eli-j-ralston" class="insight-read-link" target="_blank" rel="noopener">
+            Read on LinkedIn
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </a>
+        </div>
+
+        <!-- Secondary article -->
+        <div class="insight-card reveal reveal-delay-1">
+          <div class="insight-category">Organizational Design</div>
+          <h3 class="insight-title">The Invisible Leader</h3>
+          <p class="insight-excerpt">
+            Some leaders are invisible not because they lack skill, but because their organizations are structurally designed to keep them producing — not advancing.
+          </p>
+          <div class="insight-meta">
+            <span>Eli J. Ralston</span>
+            <span>·</span>
+            <span>February 2026</span>
+          </div>
+          <br/>
+          <a href="https://www.linkedin.com/in/elijralston" class="insight-read-link" target="_blank" rel="noopener">
+            Read on LinkedIn
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </a>
+        </div>
+
+        <!-- Coming soon -->
+        <div class="insight-card insight-coming-soon reveal reveal-delay-2">
+          <svg class="coming-soon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          <p class="coming-soon-text">More perspectives coming soon</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ════════════════════════════════════════════════════════════ -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-left reveal">
+          <span class="label">Get In Touch</span>
+          <h2 class="contact-title">Let's discuss<br><strong>your situation</strong></h2>
+          <p class="contact-desc">
+            Every engagement begins with a conversation. Tell us what is not working, what has been tried, and what the business needs to be able to do. We will tell you honestly whether we can help and what that would look like.
+          </p>
+
+          <div class="contact-info">
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Email</div>
+                <div class="contact-info-value">info@rustedgateadvisory.com</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Location</div>
+                <div class="contact-info-value">Greater Los Angeles &amp; Orange County, CA</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">LinkedIn</div>
+                <div class="contact-info-value">linkedin.com/company/rustedgateadvisory</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2">
+          <form class="contact-form" name="contact" method="POST" data-netlify="true" action="/thank-you">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="firstName">First Name</label>
+                <input class="form-input" type="text" id="firstName" name="firstName" required placeholder="Jane" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastName">Last Name</label>
+                <input class="form-input" type="text" id="lastName" name="lastName" required placeholder="Smith" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input class="form-input" type="email" id="email" name="email" required placeholder="jane@company.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="company">Company</label>
+              <input class="form-input" type="text" id="company" name="company" placeholder="Your organization" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="interest">Area of Interest</label>
+              <select class="form-select form-input" id="interest" name="interest">
+                <option value="">Select a service area</option>
+                <option value="fractional">Fractional CTO / CIO Leadership</option>
+                <option value="compliance">Compliance Remediation (SOC2 / PCI DSS)</option>
+                <option value="cre">Commercial Real Estate Technology</option>
+                <option value="pe">PE Technology Due Diligence</option>
+                <option value="other">Other / Not Sure Yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Tell Us What Is Not Working</label>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Describe your situation — what has been tried, what has not worked, and what the business needs to be able to do..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              Send Message
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="/images/RGA-Logo-Clear.png" alt="Rusted Gate Advisory" />
+          <span class="footer-logo-text">Rusted Gate Advisory</span>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#insights">Insights</a>
+          <a href="#contact">Contact</a>
+          <a href="https://www.linkedin.com/company/rustedgateadvisory" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer-copy">© 2026 Rusted Gate Advisory. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ JAVASCRIPT ════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Nav scroll behavior ─────────────────────────────────────────────────
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // ── Mobile nav toggle ────────────────────────────────────────────────────
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ── Scroll reveal ────────────────────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer  = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Smooth scroll for anchor links ───────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ── Contact form ──────────────────────────────────────────────────────────
+    const form = document.querySelector('.contact-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.form-submit');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = 'Sending...';
+        btn.disabled = true;
+
+        // When deployed on Cloudflare Pages, replace this with your
+        // preferred form handling (Cloudflare Workers, Formspree, etc.)
+        await new Promise(r => setTimeout(r, 1200));
+
+        btn.innerHTML = '✓ Message Sent';
+        btn.style.background = '#2E7D32';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+          btn.disabled = false;
+          form.reset();
+        }, 3000);
+      });
+    }
+  </script>
+
+</body>
+</html>
