@@ -1720,7 +1720,7 @@
       });
     });
 
-    // ── Contact form ──────────────────────────────────────────────────────────
+        // ── Contact form ──────────────────────────────────────────────────────────
     const form = document.querySelector('.contact-form');
     if (form) {
       form.addEventListener('submit', async (e) => {
@@ -1759,4 +1759,16 @@
           }
         } catch (err) {
           btn.innerHTML = 'Error — Please Try Again';
-          btn.style.bac
+          btn.style.background = '#B71C1C';
+          btn.disabled = false;
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+          }, 3000);
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
