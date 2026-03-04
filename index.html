@@ -1498,8 +1498,29 @@
 
       <div class="insights-grid">
 
-        <!-- Featured article -->
+        <!-- Featured article — newest -->
         <div class="insight-card featured reveal">
+          <div class="insight-category">AI Governance &amp; Talent</div>
+          <h3 class="insight-title">The Hiring Pipeline Is Broken — And AI Broke Both Ends of It</h3>
+          <p class="insight-excerpt">
+            AI is writing resumes to fool the screeners. AI is screening resumes and drowning in the volume it created. The human layer that made the process work, the skilled recruiter who knew both sides, has been systematically cut out. Drawing on Robert A. McTaggart's HITL: The Human Layer framework, this article diagnoses why the modern hiring pipeline is an unregulated AI governance failure and challenges executives to ask whether their process is producing the outcomes it was intended to produce.
+          </p>
+          <div class="insight-meta">
+            <span>Eli J. Ralston</span>
+            <span>·</span>
+            <span>March 2026</span>
+            <span>·</span>
+            <span>8 min read</span>
+          </div>
+          <br/>
+          <a href="https://www.linkedin.com/pulse/hiring-pipeline-didnt-break-ungoverned-eli-j-ralston-r9djc" class="insight-read-link" target="_blank" rel="noopener">
+            Read on LinkedIn
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </a>
+        </div>
+
+        <!-- Secondary article -->
+        <div class="insight-card reveal reveal-delay-1">
           <div class="insight-category">Leadership &amp; Culture</div>
           <h3 class="insight-title">The Difference Between Knowing and Understanding</h3>
           <p class="insight-excerpt">
@@ -1519,8 +1540,8 @@
           </a>
         </div>
 
-        <!-- Secondary article -->
-        <div class="insight-card reveal reveal-delay-1">
+        <!-- Third article -->
+        <div class="insight-card reveal reveal-delay-2">
           <div class="insight-category">Organizational Design</div>
           <h3 class="insight-title">The Invisible Leader</h3>
           <p class="insight-excerpt">
@@ -1539,7 +1560,7 @@
         </div>
 
         <!-- Coming soon -->
-        <div class="insight-card insight-coming-soon reveal reveal-delay-2">
+        <div class="insight-card insight-coming-soon reveal reveal-delay-3">
           <svg class="coming-soon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 20h9"/>
             <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
@@ -1570,7 +1591,7 @@
               </div>
               <div>
                 <div class="contact-info-label">Email</div>
-                <div class="contact-info-value">info@rustedgateadvisory.com</div>
+                <div class="contact-info-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="10797e767f506265636475747771647571746679637f62693e737f7d">[email&#160;protected]</a></div>
               </div>
             </div>
             <div class="contact-info-item">
@@ -1661,7 +1682,7 @@
   </footer>
 
   <!-- ═══ JAVASCRIPT ════════════════════════════════════════════════════════ -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ── Nav scroll behavior ─────────────────────────────────────────────────
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
@@ -1738,16 +1759,4 @@
           }
         } catch (err) {
           btn.innerHTML = 'Error — Please Try Again';
-          btn.style.background = '#B71C1C';
-          btn.disabled = false;
-          setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.style.background = '';
-          }, 3000);
-        }
-      });
-    }
-  </script>
-
-</body>
-</html>
+          btn.style.bac
