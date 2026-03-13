@@ -836,7 +836,7 @@
 
     .insights-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 2px;
       background: var(--gray-light);
     }
@@ -851,7 +851,6 @@
     .insight-card.featured {
       grid-row: span 1;
     }
-
     .insight-category {
       font-size: 0.62rem;
       font-weight: 600;
@@ -869,7 +868,7 @@
       margin-bottom: 1rem;
     }
     .insight-card:not(.featured) .insight-title {
-      font-size: 1.1rem;
+      font-size: 1.35rem;
     }
     .insight-excerpt {
       font-size: 0.85rem;
@@ -1500,6 +1499,27 @@
 
         <!-- Featured article — newest -->
         <div class="insight-card featured reveal">
+          <div class="insight-category">AI Governance &amp; Hiring</div>
+          <h3 class="insight-title">The Accountability Gap: Why Organizations Override the People Who Are Right</h3>
+          <p class="insight-excerpt">
+            Most organizations don't realize they have an accountability gap until the people who saw it coming are already gone. A look at why technical professionals are uniquely positioned to be right, ignored, and blamed — and what that costs the organizations that do it.
+          </p>
+          <div class="insight-meta">
+            <span>Eli J. Ralston</span>
+            <span>·</span>
+            <span>March 2026</span>
+            <span>·</span>
+            <span>8 min read</span>
+          </div>
+          <br/>
+          <a href="https://www.linkedin.com/posts/eli-j-ralston_most-organizations-dont-realize-they-have-activity-7437875061769949185-RgZ7?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAAL6sIBM4OllEiz9e4s8QAnKZs-MmCR1wo" class="insight-read-link" target="_blank" rel="noopener">
+            Read on LinkedIn
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </a>
+        </div>
+
+        <!-- Second article -->
+        <div class="insight-card reveal reveal-delay-1">
           <div class="insight-category">AI Governance &amp; Talent</div>
           <h3 class="insight-title">The Hiring Pipeline Didn't Break. It Is Ungoverned.</h3>
           <p class="insight-excerpt">
@@ -1519,8 +1539,8 @@
           </a>
         </div>
 
-        <!-- Secondary article -->
-        <div class="insight-card reveal reveal-delay-1">
+        <!-- Third article -->
+        <div class="insight-card reveal reveal-delay-2">
           <div class="insight-category">Leadership &amp; Culture</div>
           <h3 class="insight-title">The Difference Between Knowing and Understanding</h3>
           <p class="insight-excerpt">
@@ -1540,8 +1560,8 @@
           </a>
         </div>
 
-        <!-- Third article -->
-        <div class="insight-card reveal reveal-delay-2">
+        <!-- Fourth article -->
+        <div class="insight-card reveal reveal-delay-3">
           <div class="insight-category">Organizational Design</div>
           <h3 class="insight-title">The Invisible Leader</h3>
           <p class="insight-excerpt">
@@ -1560,6 +1580,7 @@
         </div>
 
         <!-- Coming soon -->
+<!--
         <div class="insight-card insight-coming-soon reveal reveal-delay-3">
           <svg class="coming-soon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 20h9"/>
@@ -1567,7 +1588,7 @@
           </svg>
           <p class="coming-soon-text">More perspectives coming soon</p>
         </div>
-
+ -->
       </div>
     </div>
   </section>
